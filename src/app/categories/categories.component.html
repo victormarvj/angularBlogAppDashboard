@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
+
+      <h3 class="text-center text-theme-primary">{{ formStatus }} Categories</h3>
+      <p class="text-center mb-3"> You can add new categories from here..! </p>
+
+      <form class="row text-center" #categoryForm='ngForm' (ngSubmit)="onSubmit(categoryForm)">
+        <div class="col-md-10">
+          <input type="text" class="form-control shadow-effect" name="category" id="" placeholder="Add New Category" #newCategory="ngModel" [(ngModel)]="formCategory" required="" [ngClass]="{ 'is-invalid': newCategory.touched && newCategory.invalid }">
+          <div class="alert alert-danger" *ngIf="newCategory.touched && newCategory.invalid"> Category Field is required </div>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-info mb-2 btn-theme" [disabled]="categoryForm.invalid"> {{ formStatus }} Category </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row my-5 justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-effect">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let category of categoryArr; let i = index">
+                <td> {{ i + 1 }} </td>
+                <td> {{ category['data'].category }} </td>
+                <td>
+                  <button class="btn btn-warning btn-sm" (click)="onEdit(category['data'].category, category['id'])">Edit</button>
+                  <button class="btn btn-danger ms-2 btn-sm" (click)="onDelete(category['id'])">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
